@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nsd
-PKG_VERSION:=4.6.1
+PKG_VERSION:=4.13.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.nlnetlabs.nl/downloads/nsd
-PKG_HASH:=3f60a3a13ec3f68e84bfa7e19daff663c82bcf1de96e4f53f2246525e773a27a
+PKG_HASH:=83181b9cfee9495076f124926b28259e7f3911c4da80e17883c211c7e17cd04e
 
 PKG_MAINTAINER:=Vasilis Tsiligiannis <acinonyx@openwrt.gr>
 PKG_LICENSE:=BSD-3-Clause
@@ -42,7 +42,7 @@ endef
 define Package/nsd
   $(Package/nsd/default)
   TITLE += (with SSL support)
-  DEPENDS += +libopenssl
+  DEPENDS += +libopenssl +libfstrm +libprotobuf-c
   VARIANT:=ssl
 endef
 
@@ -53,6 +53,7 @@ endef
 define Package/nsd-nossl
   $(Package/nsd/default)
   TITLE += (without SSL support)
+  DEPENDS += +libfstrm +libprotobuf-c
   VARIANT:=nossl
 endef
 
@@ -67,7 +68,7 @@ endef
 define Package/nsd-control
   $(Package/nsd/default)
   TITLE += remote control utility
-  DEPENDS += +libopenssl
+  DEPENDS += +libopenssl +libfstrm +libprotobuf-c
 endef
 
 define Package/nsd-control/description
